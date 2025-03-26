@@ -1,24 +1,41 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MovieService } from './tmdb.service';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';  // Necessário para usar *ngFor
+import { CommonModule } from '@angular/common';  // Importar CommonModule
 
 @Component({
-  selector: 'app-movie-list',  // O seletor para ser usado no HTML
-  standalone: true,  // Definindo como um componente standalone
-  imports: [CommonModule],  // Importando CommonModule para usar *ngFor
+  selector: 'app-movie-list',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './movie-list.component.html',
-  styleUrls: ['./movie-list.component.css']
+  styleUrls: ['./movie-list.component.css'],
 })
-export class MovieListComponent {
-  movies = [
-    { id: 1, title: 'Movie 1', poster: 'https://via.placeholder.com/150' },
-    { id: 2, title: 'Movie 2', poster: 'https://via.placeholder.com/150' },
-    { id: 3, title: 'Movie 3', poster: 'https://via.placeholder.com/150' }
-  ];
+export class MovieListComponent implements OnInit {
+  movies: any[] = [];
+  isLoading: boolean = true;
+  errorMessage: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private movieService: MovieService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.loadMovies();
+  }
+
+  loadMovies(): void {
+    this.movieService.getMovies().subscribe(
+      (data) => {
+        console.log(data)
+        this.movies = data.items;  // Ajuste conforme sua API
+        this.isLoading = false;
+      },
+      (error) => {
+        this.errorMessage = 'Não foi possível carregar a lista de filmes';
+        this.isLoading = false;
+      }
+    );
+  }
 
   goToDetail(id: number): void {
-    this.router.navigate(['/movie', id]);  // Navega para a rota de detalhes
+    this.router.navigate(['/movie', id]);
   }
 }

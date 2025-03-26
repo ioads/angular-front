@@ -1,6 +1,44 @@
-<div class="movie-detail">
-    <h2>{{ movieTitle }}</h2>
-    <!-- <img [src]="moviePoster" alt="{{ movieTitle }}" class="movie-poster"> -->
-    <p>ID do filme: {{ movieId }}</p>
+<div *ngIf="isLoading">Carregando detalhes do filme...</div>
+<div *ngIf="errorMessage">{{ errorMessage }}</div>
+
+<div *ngIf="!isLoading && movie" class="movie-detail-card">
+  <!-- Imagem de fundo do filme -->
+  <div class="movie-backdrop">
+    <img [src]="'https://image.tmdb.org/t/p/w1280' + movie.backdrop_path" alt="{{ movie.title }}" />
   </div>
-  
+
+  <div class="movie-card-content">
+    <!-- Título e tagline -->
+    <h1>{{ movie.title }}</h1>
+    <p class="tagline">{{ movie.tagline }}</p>
+
+    <!-- Sinopse -->
+    <div class="overview">
+      <h3>Sinopse:</h3>
+      <p>{{ movie.overview }}</p>
+    </div>
+
+    <!-- Informações do filme -->
+    <div class="movie-info">
+      <p><strong>Data de Lançamento:</strong> {{ movie.release_date | date }}</p>
+      <p><strong>Duração:</strong> {{ movie.runtime }} minutos</p>
+      <p><strong>Idioma Original:</strong> {{ movie.original_language }}</p>
+      <p><strong>Status:</strong> {{ movie.status }}</p>
+      <p><strong>Avaliação:</strong> {{ movie.vote_average }} / 10</p>
+    </div>
+
+    <!-- Gêneros -->
+    <div class="genres">
+      <h3>Gêneros:</h3>
+      <ul>
+        <li *ngFor="let genre of movie.genres">{{ genre.name }}</li>
+      </ul>
+    </div>
+
+    <!-- Links -->
+    <div class="links">
+      <a [href]="movie.homepage" target="_blank">Visite o site oficial</a>
+      <a [href]="'https://www.imdb.com/title/' + movie.imdb_id" target="_blank">Ver no IMDb</a>
+    </div>
+  </div>
+</div>
