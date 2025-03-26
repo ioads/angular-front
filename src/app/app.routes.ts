@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { MovieListComponent } from './movie-list.component';
-import { MovieDetailComponent } from './movie-detail.component';
+import { MovieListComponent } from './movie-list.component';  // Importando o componente MovieList
+import { MovieDetailComponent } from './movie-detail.component';  // Importando o componente MovieDetail
 
 export const routes: Routes = [
-  { path: '', component: MovieListComponent }, // Exibe a lista de filmes na rota raiz
-  { path: 'movie/:id', component: MovieDetailComponent } // Exibe os detalhes do filme
+  { path: '', component: MovieListComponent },  // Rota para exibir a lista de filmes
+  { path: 'movie/:id', component: MovieDetailComponent }  // Rota para exibir detalhes do filme
 ];
