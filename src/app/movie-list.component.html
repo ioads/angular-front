@@ -1,0 +1,7 @@
+<div class="movie-list">
+    <div *ngFor="let movie of movies" class="movie-card" (click)="goToDetail(movie.id)">
+      <img [src]="movie.poster" alt="{{ movie.title }}" class="movie-poster">
+      <h3>{{ movie.title }}</h3>
+    </div>
+  </div>
+  
