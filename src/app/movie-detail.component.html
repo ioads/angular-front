@@ -9,7 +9,8 @@
 
   <div class="movie-card-content">
     <!-- Título e tagline -->
-    <h1>{{ movie.title }}</h1>
+    <h1>{{ movie.title }}</h1> 
+    <h3>{{ movie.original_title }}</h3>
     <p class="tagline">{{ movie.tagline }}</p>
 
     <!-- Sinopse -->
@@ -37,7 +38,7 @@
 
     <!-- Links -->
     <div class="links">
-      <a [href]="movie.homepage" target="_blank">Visite o site oficial</a>
+      <a [href]="movie.homepage" target="_blank">Visite o site oficial</a><br>
       <a [href]="'https://www.imdb.com/title/' + movie.imdb_id" target="_blank">Ver no IMDb</a>
     </div>
   </div>
